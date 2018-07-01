@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  hccc-server-dotnet:
+    image: ${DOCKER_REGISTRY}hcccserverdotnet
+    build:
+      context: .
+      dockerfile: hccc-server-dotnet/Dockerfile
