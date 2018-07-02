@@ -30,7 +30,7 @@ namespace hccc_api
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<HcccServerDbContext>((options) => 
-                options.UseMySql("server=homeserver;database=hccc_dev;user=bobby;password=password"));
+                options.UseMySql("server=192.168.0.222;database=hccc_dev;user=bobby;password=password"));
 
             var provider = services.BuildServiceProvider();
 
