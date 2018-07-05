@@ -33,17 +33,21 @@ namespace hccc_api
             services.AddDbContext<HcccServerDbContext>((options) => 
                 options.UseMySql($"server={server};database=hccc_dev;user=bobby;password=password"));
 
+            services.AddCors(o => o.AddPolicy("AllowAny", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
             var provider = services.BuildServiceProvider();
 
-            using (var context = provider.GetRequiredService<HcccServerDbContext>())
-            {
-                if (context.Database.EnsureCreated())
-                {
-                    var recipes = new Recipe[] { new Recipe() { Name = "A", Description = "A" } };
-                    context.Set<Recipe>().AddRange(recipes);
-                    context.SaveChanges();
-                }
-            }
+            //using (var context = provider.GetRequiredService<HcccServerDbContext>())
+            //{
+            //    if (context.Database.EnsureCreated())
+            //    {
+            //    }
+            //}
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +58,7 @@ namespace hccc_api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("AllowAny");
             app.UseMvc();
         }
     }
