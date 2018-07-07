@@ -46,6 +46,7 @@ namespace hccc_api
                 entity.Property(e => e.ID).ValueGeneratedOnAdd();
                 entity.HasOne<Models.Recipe>("Recipe").WithMany("Directions");
                 entity.Property(e => e.Text);
+                entity.Property(e => e.Step);
                 entity.Property(e => e.CreatedDate).ValueGeneratedOnAdd();
                 entity.Property(e => e.RevisionDate).ValueGeneratedOnUpdate();
             });

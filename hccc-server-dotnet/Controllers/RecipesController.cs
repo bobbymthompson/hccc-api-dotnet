@@ -23,7 +23,7 @@ namespace hccc_api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<dynamic>> Get()
         {
-            return _context.Set<Recipe>()
+            var recipes = _context.Set<Recipe>()
                 .Include(r => r.Ingredients)
                 .Include(r => r.Directions)
                 .Select(r => new
@@ -36,8 +36,10 @@ namespace hccc_api.Controllers
                     r.CreatedDate,
                     r.RevisionDate,
                     Ingredients = r.Ingredients.Select(i => new { i.Text }),
-                    Directions = r.Directions.Select(i => new { i.Text })
+                    Directions = r.Directions.Select(i => new { i.Text, i.Step })
                 }).ToList();
+
+            return recipes;
         }
 
         // GET api/recipes/5
@@ -58,7 +60,7 @@ namespace hccc_api.Controllers
                     r.CreatedDate,
                     r.RevisionDate,
                     Ingredients = r.Ingredients.Select(i => new { i.Text }),
-                    Directions = r.Directions.Select(i => new { i.Text })
+                    Directions = r.Directions.Select(i => new { i.Text, i.Step })
                 })
                 .FirstOrDefault();
 
